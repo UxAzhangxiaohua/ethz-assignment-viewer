@@ -1,5 +1,3 @@
-// Copyright 2023 Ziad Malik
-
 import * as cheerio from "cheerio";
 
 function getLastDateFromString(inputString) {
@@ -28,8 +26,7 @@ function getLastDateFromString(inputString) {
         return undefined;
     }
 
-    console.log('linalg last date: ')
-    console.log(lastDate)
+    console.log('linalg last date: ', lastDate);
 
     // LinAlg gives you 6 days time for some reason?
     return lastDate.setDate(lastDate.getDate() + 6);
@@ -37,7 +34,7 @@ function getLastDateFromString(inputString) {
 
 export default async function parse() {
     const baseUrl = "https://ti.inf.ethz.ch/ew/courses/LA24/index.html";
-    const res = await fetch(baseUrl)
+    const res = await fetch(baseUrl);
 
     if (!res.ok) {
         console.log('Response not OK');
@@ -45,32 +42,35 @@ export default async function parse() {
     }
 
     const html = await res.text();
-
     const $ = cheerio.load(html);
-    // const exercises = [];
-    // Initialize an array to store the data for each row
     const rows = [];
 
     // Iterate through each table row in the tbody
     $('table tbody tr').each((index, element) => {
-        if (element.children.length < 2) {
+        const columns = $(element).find('td'); // Ensure columns are extracted
+
+        if (columns.length < 2) {
             return;
         }
 
-        const columns = $(element).find('td');
-
-        const exerciseName = $(columns[5]).find('a').text();
-        const exercisePDF = $(columns[5]).find('a').attr('href');
-        const solutionPDF = $(columns[5]).find('a').attr('href');
-        const bonusLink = $(columns[6]).find('a').attr('href');
-        const dueDate = getLastDateFromString($(columns[1]).text());
-        console.log(dueDate)
+        const exercisePDF = $(columns[5]).find('a').eq(0).attr('href'); // First <a> tag's href (assignment PDF)
+        const solutionPDF = $(columns[5]).find('a').eq(1).attr('href'); // Second <a> tag's href (solution PDF)
+        
+        // Extract the file names from URLs
+        const exerciseName = exercisePDF?.split('/').pop().replace('.pdf', '') || ''; // Extracts 'assignment_0'
+        const solutionName = solutionPDF?.split('/').pop().replace('.pdf', '') || ''; // Extracts 'solution_0'
+        
+        const bonusLink = $(columns[6]).find('a').attr('href'); // Bonus link remains the same
+        const dueDate = getLastDateFromString($(columns[1]).text()); // Extract the due date from the second column
+        
+        console.log(exerciseName); // Outputs 'assignment_0'
+        console.log(solutionName); // Outputs 'solution_0'
 
         // Create an object for the row and push it to the array
         rows.push({
             exerciseName,
             exercisePDF,
-            solutionPDF: null,    
+            solutionPDF,    
             bonusLink,
             dueDate,
         });
@@ -83,6 +83,4 @@ export default async function parse() {
         website: baseUrl,
         video: "https://video.ethz.ch/lectures/d-math/2024/autumn/401-0131-00L.html",
     };
-};
-
-// console.log(await parse())
+}
