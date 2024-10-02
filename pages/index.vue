@@ -15,7 +15,10 @@
             <AssignmentCard v-for="assignment in lecturesToAssignments[lecture].exercises" :assignment="assignment" />
         </div>
     </div>
-
+    <a href="https://n.ethz.ch/~hpaetzold/" target="_blank">
+  <UButton color="gray" icon="i-heroicons-globe-alt" label="Eprog TA Website" />
+    </a>
+ 
     <div class="flex flex-col px-2">
         <span class="text-xl font-semibold text-primary-500">Diskrete Mathematik</span>
         <div class="flex gap-2 my-4">
@@ -41,6 +44,7 @@
             <!-- @vue-ignore -->
             <UButton color="gray" icon="i-heroicons-video-camera" label="Video Lectures" to="https://video.ethz.ch/lectures/d-infk/2024/autumn/252-0057-00L.html" target="_blank" />
             <UButton color="gray" icon="i-heroicons-globe-alt" label="exercise" to="https://moodle-app2.let.ethz.ch/course/view.php?id=23497#section-6" target="_blank" />
+            <UButton color="gray" icon="i-heroicons-globe-alt" label="Nicolas Wehrli's Website" to="https://n.ethz.ch/~nwehrl/TheoInf/" target="_blank" />
         </div>
     </div>
 </template>
