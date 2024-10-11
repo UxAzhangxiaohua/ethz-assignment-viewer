@@ -15,6 +15,7 @@
             <AssignmentCard v-for="assignment in lecturesToAssignments[lecture].exercises" :assignment="assignment" />
         </div>
     </div>
+
     <a href="https://n.ethz.ch/~hpaetzold/" target="_blank">
   <UButton color="gray" icon="i-heroicons-globe-alt" label="Eprog TA Website" />
     </a>

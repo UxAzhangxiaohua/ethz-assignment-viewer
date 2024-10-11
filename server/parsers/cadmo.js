@@ -41,5 +41,6 @@ export default async function parse() {
         exercises,
         website: baseUrl,
         video: "https://video.ethz.ch/lectures/d-infk/2024/autumn/252-0026-00L.html",
+        hs23: "https://cadmo.ethz.ch/education/lectures/HS23/DA/index.html",
     };
 };
