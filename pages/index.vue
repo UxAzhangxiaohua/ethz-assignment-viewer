@@ -27,6 +27,8 @@
             <!-- @vue-ignore -->
             <UButton color="gray" icon="i-heroicons-video-camera" label="Video Lectures" to="https://video.ethz.ch/lectures/d-infk/2024/autumn/252-0025-01L.html" target="_blank" />
             <UButton color="gray" icon="i-heroicons-globe-alt" label="exercise" to="https://dm.crypto.ethz.ch/" target="_blank" />
+            <UButton color="gray" icon="i-heroicons-globe-alt" label="Leon Kolmanic" to="https://leonkolmanic.com/teaching/" target="_blank" />
+
         </div>
     </div>
     <div class="flex flex-col px-2">
